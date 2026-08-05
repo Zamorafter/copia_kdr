@@ -1,6 +1,6 @@
 import React from 'react';
-import { X, Rotate3d, MessageCircle, Sparkles } from 'lucide-react';
-import Shirt3DViewer from './Shirt3DViewer';
+import { X, MessageCircle } from 'lucide-react';
+import Shirt2DViewer from './Shirt2DViewer';
 import { getWhatsAppLink } from '../config/whatsapp';
 
 export default function ProductModal3D({ shirt, onClose }) {
@@ -17,14 +17,9 @@ export default function ProductModal3D({ shirt, onClose }) {
         </button>
 
         <div className="modal-grid">
-          {/* Lado 3D */}
+          {/* Lado Imagen 2D */}
           <div className="modal-3d-box">
-            <Shirt3DViewer shirt={shirt} autoRotate={true} />
-            
-            <div className="instructions-3d-badge glass-pill" style={{ bottom: '1rem' }}>
-              <Rotate3d size={14} color="#e1306c" />
-              <span>Rota 360° con tu dedo o mouse</span>
-            </div>
+            <Shirt2DViewer shirt={shirt} />
           </div>
 
           {/* Lado Información y Botón de WhatsApp */}
@@ -57,7 +52,7 @@ export default function ProductModal3D({ shirt, onClose }) {
             </a>
             
             <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-dim)', marginTop: '0.85rem' }}>
-              💬 Te responderemos con el precio y disponibilidad de inmediato.
+              💬 Consulta de inmediato precio y disponibilidad por WhatsApp.
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Rotate3d, MessageCircle, Filter } from 'lucide-react';
+import { Eye, MessageCircle } from 'lucide-react';
 import { getWhatsAppLink } from '../config/whatsapp';
 
 export default function Catalog({ shirts, onOpenModal }) {
@@ -16,10 +16,10 @@ export default function Catalog({ shirts, onOpenModal }) {
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">
-            Colección de <span className="gradient-text-ig">Camisas</span>
+            Catálogo de <span className="gradient-text-ig">Camisas</span>
           </h2>
           <p className="section-subtitle">
-            Selecciona la camisa que más te guste para explorarla en 3D o hacer tu pedido por WhatsApp.
+            Selecciona la camisa de tu preferencia para ver su detalle o hacer tu consulta directa por WhatsApp.
           </p>
 
           {/* Filtros de Categorías */}
@@ -74,15 +74,15 @@ export default function Catalog({ shirts, onOpenModal }) {
                     </p>
                   </div>
 
-                  {/* Acciones: Ver en 3D y WhatsApp */}
+                  {/* Acciones: Ver Detalle y WhatsApp */}
                   <div className="product-actions-row">
                     <button
                       onClick={() => onOpenModal(shirt)}
                       className="btn-view-3d"
-                      title="Explorar este modelo en 3D"
+                      title="Ver detalle del modelo"
                     >
-                      <Rotate3d size={16} />
-                      <span>3D</span>
+                      <Eye size={16} />
+                      <span>Detalle</span>
                     </button>
 
                     <a
