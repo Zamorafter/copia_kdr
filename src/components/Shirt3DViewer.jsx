@@ -1,86 +1,86 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect, Component } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, PerspectiveCamera, Html, useProgress } from '@react-three/drei';
+import { OrbitControls, Float, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Componente de Carga 3D (Skill: 3d-web-experience validation)
-function Loader() {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <div style={{
-        background: 'rgba(9, 10, 15, 0.85)',
-        backdropFilter: 'blur(8px)',
-        padding: '0.75rem 1.5rem',
-        borderRadius: '999px',
-        border: '1px solid rgba(255, 255, 255, 0.15)',
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: '0.9rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        whiteSpace: 'nowrap'
-      }}>
-        <div style={{
-          width: '12px',
-          height: '12px',
-          borderRadius: '50%',
-          border: '2px solid #e1306c',
-          borderTopColor: 'transparent',
-          animation: 'spin 1s linear infinite'
-        }}></div>
-        Cargando modelo 3D... {progress.toFixed(0)}%
-      </div>
-    </Html>
-  );
+// Función para verificar si WebGL está disponible en el navegador
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch (e) {
+    return false;
+  }
 }
 
-// Geometría y Malla 3D procedural estilizada de la Camisa
+// Error Boundary para capturar fallos de renderizado 3D sin congelar ni dejar en blanco la web
+class ThreeErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.warn('Fallback 3D activado debido a error de WebGL:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+// Malla 3D estilizada de la Camisa
 function ShirtMesh({ shirt }) {
   const groupRef = useRef();
-  const bodyRef = useRef();
-
-  // Color primario del modelo 3D
   const shirtColor = shirt?.color3D || '#161824';
   const isLightShirt = shirtColor.toLowerCase() === '#f1f5f9';
 
-  // Generamos una textura gráfica para la pechera según la camisa
+  // Textura gráfica para el estampado frontal de la camisa
   const printTexture = useMemo(() => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
 
-    // Fondo transparente
-    ctx.clearRect(0, 0, 512, 512);
+      if (!ctx) return null;
 
-    // Dibujamos un diseño urbano según la camisa
-    const textColor = isLightShirt ? '#0f172a' : '#ffffff';
-    const accent = shirt?.accentColor || '#e1306c';
+      ctx.clearRect(0, 0, 512, 512);
 
-    // Gráfico de marca y tipografía urbana
-    ctx.fillStyle = accent;
-    ctx.beginPath();
-    ctx.arc(256, 180, 70, 0, Math.PI * 2);
-    ctx.fill();
+      const textColor = isLightShirt ? '#0f172a' : '#ffffff';
+      const accent = shirt?.accentColor || '#e1306c';
 
-    ctx.fillStyle = textColor;
-    ctx.font = '900 42px Outfit, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('STREETWEAR', 256, 310);
+      ctx.fillStyle = accent;
+      ctx.beginPath();
+      ctx.arc(256, 180, 70, 0, Math.PI * 2);
+      ctx.fill();
 
-    ctx.font = '700 24px Plus Jakarta Sans, sans-serif';
-    ctx.fillStyle = accent;
-    ctx.fillText('3D EDITION', 256, 350);
+      ctx.fillStyle = textColor;
+      ctx.font = '900 42px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('STREETWEAR', 256, 310);
 
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.needsUpdate = true;
-    return texture;
+      ctx.font = '700 24px sans-serif';
+      ctx.fillStyle = accent;
+      ctx.fillText('3D EDITION', 256, 350);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      return texture;
+    } catch (e) {
+      return null;
+    }
   }, [shirt, isLightShirt]);
 
-  // Rotación continua suave del modelo 3D
-  useFrame((state, delta) => {
+  // Rotación suave del modelo 3D
+  useFrame((_, delta) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.4;
     }
@@ -89,13 +89,12 @@ function ShirtMesh({ shirt }) {
   return (
     <group ref={groupRef} position={[0, -0.2, 0]} scale={1.15}>
       {/* Torso de la camisa */}
-      <mesh ref={bodyRef} castShadow receiveShadow position={[0, 0, 0]}>
+      <mesh castShadow receiveShadow position={[0, 0, 0]}>
         <cylinderGeometry args={[0.9, 0.95, 2.1, 32]} />
         <meshStandardMaterial
           color={shirtColor}
           roughness={0.6}
           metalness={0.1}
-          bumpScale={0.02}
         />
       </mesh>
 
@@ -121,59 +120,86 @@ function ShirtMesh({ shirt }) {
         </mesh>
       </group>
 
-      {/* Decal / Estampado gráfico frontal */}
-      <mesh position={[0, 0.2, 0.91]} rotation={[0, 0, 0]}>
-        <planeGeometry args={[1.0, 1.0]} />
-        <meshBasicMaterial map={printTexture} transparent depthWrite={false} />
-      </mesh>
+      {/* Estampado frontal */}
+      {printTexture && (
+        <mesh position={[0, 0.2, 0.91]}>
+          <planeGeometry args={[1.0, 1.0]} />
+          <meshBasicMaterial map={printTexture} transparent depthWrite={false} />
+        </mesh>
+      )}
     </group>
   );
 }
 
-// Componente principal de la Escena 3D
+// Vista previa de respaldo estática (Fallback 2D cuando WebGL no está disponible)
+function ImageFallback({ shirt }) {
+  return (
+    <div style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      background: 'radial-gradient(circle at center, #1b2030 0%, #0d0e15 100%)'
+    }}>
+      <img
+        src={shirt?.image}
+        alt={shirt?.name || 'Camisa'}
+        style={{
+          maxHeight: '85%',
+          maxWidth: '85%',
+          objectFit: 'contain',
+          filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.6))'
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Shirt3DViewer({ shirt, autoRotate = true }) {
-  // Detección para limitar DPR en dispositivos móviles (Optimización Skill 3D)
-  const isMobile = typeof window !== 'undefined' && /iPhone|iPad|Android/i.test(navigator.userAgent);
+  const [hasWebGL, setHasWebGL] = useState(true);
+
+  useEffect(() => {
+    setHasWebGL(isWebGLAvailable());
+  }, []);
+
+  if (!hasWebGL) {
+    return <ImageFallback shirt={shirt} />;
+  }
+
+  const fallbackUI = <ImageFallback shirt={shirt} />;
 
   return (
-    <Canvas
-      dpr={isMobile ? 1 : [1, 2]}
-      performance={{ min: 0.5 }}
-      shadows
-      style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
-    >
-      <PerspectiveCamera makeDefault position={[0, 0.5, 4.2]} fov={45} />
-      
-      {/* Iluminación de estudio 3D */}
-      <ambientLight intensity={0.8} />
-      <directionalLight
-        position={[5, 8, 5]}
-        intensity={1.2}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-      />
-      <directionalLight position={[-5, 5, -5]} intensity={0.4} color="#38bdf8" />
-      <spotLight position={[0, 6, 2]} intensity={0.8} angle={0.6} penumbra={0.8} color="#e1306c" />
+    <ThreeErrorBoundary fallback={fallbackUI}>
+      <Canvas
+        dpr={[1, 1.5]}
+        performance={{ min: 0.5 }}
+        shadows
+        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        gl={{ powerPreference: 'high-performance', antialias: true }}
+      >
+        <PerspectiveCamera makeDefault position={[0, 0.5, 4.2]} fov={45} />
+        
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[5, 8, 5]} intensity={1.2} castShadow />
+        <directionalLight position={[-5, 5, -5]} intensity={0.4} color="#38bdf8" />
 
-      {/* Suspensión con Loader para 3D */}
-      <React.Suspense fallback={<Loader />}>
         <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
           <ShirtMesh shirt={shirt} />
         </Float>
-      </React.Suspense>
 
-      {/* Controles de órbita 360° táctiles e interactivos sin bloquear el scroll */}
-      <OrbitControls
-        enableZoom={true}
-        minDistance={2.5}
-        maxDistance={6.0}
-        enablePan={false}
-        autoRotate={autoRotate}
-        autoRotateSpeed={1.5}
-        maxPolarAngle={Math.PI / 1.8}
-        minPolarAngle={Math.PI / 4}
-      />
-    </Canvas>
+        <OrbitControls
+          enableZoom={true}
+          minDistance={2.5}
+          maxDistance={6.0}
+          enablePan={false}
+          autoRotate={autoRotate}
+          autoRotateSpeed={1.5}
+          maxPolarAngle={Math.PI / 1.8}
+          minPolarAngle={Math.PI / 4}
+        />
+      </Canvas>
+    </ThreeErrorBoundary>
   );
 }

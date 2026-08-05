@@ -40,12 +40,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body, #root, .app-root {
   background-color: var(--bg-primary);
   color: var(--text-main);
   font-family: var(--font-body);
   overflow-x: hidden;
   min-height: 100vh;
+  width: 100%;
 }
 
 /* Custom Scrollbar */
