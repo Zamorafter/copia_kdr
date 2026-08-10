@@ -13,10 +13,19 @@ export const WHATSAPP_CONFIG = {
 export function getWhatsAppLink(shirt) {
   const modelName = shirt ? shirt.name : 'Camisa Urban Glow';
   
-  // Obtenemos la URL completa de la imagen o su ruta estática
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://github.com/Zamorafter/isaackdr';
-  const imageUrl = shirt ? (shirt.image.startsWith('http') ? shirt.image : `${baseUrl}${shirt.image}`) : '';
-  
+  // URL completa de la imagen según el dominio donde esté alojada la web
+  let imageUrl = '';
+  if (shirt && shirt.image) {
+    if (shirt.image.startsWith('http')) {
+      imageUrl = shirt.image;
+    } else if (typeof window !== 'undefined') {
+      const cleanPath = shirt.image.replace(/^\.\//, '');
+      const currentUrl = window.location.href.split('?')[0].split('#')[0];
+      const dirUrl = currentUrl.endsWith('/') ? currentUrl : currentUrl + '/';
+      imageUrl = new URL(cleanPath, dirUrl).href;
+    }
+  }
+
   // Mensaje exacto solicitado por el usuario:
   // "como estan, quisiera saber en cuanto sale este modelo"
   const message = `como estan, quisiera saber en cuanto sale este modelo: ${modelName}\n\nImagen: ${imageUrl}`;
