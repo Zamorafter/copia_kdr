@@ -12,18 +12,18 @@ export default function Navbar() {
             <ShoppingBag size={22} color="#ffffff" />
           </div>
           <span className="logo-text">
-            URBAN<span className="gradient-text-ig">3D</span>
+            URBAN <span className="gradient-text-ig">GLOW</span>
           </span>
         </a>
 
         {/* Botón de Enlace a Instagram Oficial */}
         <div className="nav-links">
           <a
-            href={`https://instagram.com/${WHATSAPP_CONFIG.instagramHandle}`}
+            href={WHATSAPP_CONFIG.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link-ig"
-            title="Ir a nuestro Instagram oficial"
+            title="Ir al Instagram oficial de Urban Glow"
           >
             <Instagram size={18} />
             <span>@{WHATSAPP_CONFIG.instagramHandle}</span>

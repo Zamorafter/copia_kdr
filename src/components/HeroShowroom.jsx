@@ -15,16 +15,16 @@ export default function HeroShowroom({ featuredShirt, onOpenModal }) {
         <div className="hero-text-content">
           <div className="hero-badge glass-pill">
             <Sparkles size={14} />
-            <span>NUEVA COLECCIÓN URBAN STREETWEAR</span>
+            <span>URBAN GLOW STREETWEAR</span>
           </div>
 
           <h1 className="hero-title">
-            Camisas que <br />
-            <span className="gradient-text-ig">marcan el estilo</span>
+            Camisas Exclusivas <br />
+            <span className="gradient-text-ig">Urban Glow</span>
           </h1>
 
           <p className="hero-subtitle">
-            Explora nuestros modelos exclusivos en alta definición. Elige tu diseño preferido y consúltanos el precio directamente por WhatsApp.
+            Catálogo oficial de nuestras prendas urbanas. Elige tu modelo favorito y consúltanos la disponibilidad y precio directamente por WhatsApp.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>

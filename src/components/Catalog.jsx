@@ -5,7 +5,7 @@ import { getWhatsAppLink } from '../config/whatsapp';
 export default function Catalog({ shirts, onOpenModal }) {
   const [selectedCategory, setSelectedCategory] = useState('Todas');
 
-  const categories = ['Todas', 'Oversized', 'Streetwear', 'Vintage', 'Urban'];
+  const categories = ['Todas', 'Streetwear', 'Racing'];
 
   const filteredShirts = selectedCategory === 'Todas'
     ? shirts
@@ -16,7 +16,7 @@ export default function Catalog({ shirts, onOpenModal }) {
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">
-            Catálogo de <span className="gradient-text-ig">Camisas</span>
+            Colección <span className="gradient-text-ig">Urban Glow</span>
           </h2>
           <p className="section-subtitle">
             Selecciona la camisa de tu preferencia para ver su detalle o hacer tu consulta directa por WhatsApp.

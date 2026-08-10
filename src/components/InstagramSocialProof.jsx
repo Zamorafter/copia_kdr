@@ -1,34 +1,15 @@
 import React from 'react';
 import { Instagram, Heart, MessageSquare } from 'lucide-react';
 import { WHATSAPP_CONFIG } from '../config/whatsapp';
+import { SHIRTS_DATA } from '../data/shirts';
 
 export default function InstagramSocialProof() {
-  const posts = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80',
-      likes: '1.2k',
-      comments: '84'
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80',
-      likes: '2.4k',
-      comments: '130'
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80',
-      likes: '980',
-      comments: '62'
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80',
-      likes: '3.1k',
-      comments: '215'
-    }
-  ];
+  const posts = SHIRTS_DATA.map((shirt, idx) => ({
+    id: shirt.id,
+    image: shirt.image,
+    likes: (1.4 + idx * 0.8).toFixed(1) + 'k',
+    comments: 80 + idx * 35
+  }));
 
   return (
     <section className="social-proof-section">
@@ -36,14 +17,14 @@ export default function InstagramSocialProof() {
         <div className="section-header">
           <div className="hero-badge glass-pill" style={{ display: 'inline-flex' }}>
             <Instagram size={14} />
-            <span>INSTAGRAM COMMUNITY</span>
+            <span>INSTAGRAM OFFICIAL</span>
           </div>
 
           <h2 className="section-title">
             Síguenos en <span className="gradient-text-ig">@{WHATSAPP_CONFIG.instagramHandle}</span>
           </h2>
           <p className="section-subtitle">
-            Mira cómo lucen nuestros clientes con sus camisas y entérate de los próximos drops exclusivos.
+            Conoce los últimos lanzamientos y la comunidad de Urban Glow.
           </p>
         </div>
 
@@ -53,7 +34,7 @@ export default function InstagramSocialProof() {
             <div key={post.id} className="ig-post-card">
               <img src={post.image} alt="Instagram post" loading="lazy" />
               <a
-                href={`https://instagram.com/${WHATSAPP_CONFIG.instagramHandle}`}
+                href={WHATSAPP_CONFIG.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ig-post-overlay"
@@ -73,14 +54,14 @@ export default function InstagramSocialProof() {
 
         <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
           <a
-            href={`https://instagram.com/${WHATSAPP_CONFIG.instagramHandle}`}
+            href={WHATSAPP_CONFIG.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link-ig"
             style={{ display: 'inline-flex', padding: '0.8rem 2rem', fontSize: '1rem' }}
           >
             <Instagram size={20} />
-            <span>Ver más en Instagram</span>
+            <span>Ver Instagram @{WHATSAPP_CONFIG.instagramHandle}</span>
           </a>
         </div>
       </div>
