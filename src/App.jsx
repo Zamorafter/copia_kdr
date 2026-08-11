@@ -5,7 +5,8 @@ import Catalog from './components/Catalog';
 import ProductModal3D from './components/ProductModal3D';
 import InstagramSocialProof from './components/InstagramSocialProof';
 import { SHIRTS_DATA } from './data/shirts';
-import { WHATSAPP_CONFIG } from './config/whatsapp';
+import { WHATSAPP_CONFIG, getWhatsAppLink } from './config/whatsapp';
+import { MessageCircle } from 'lucide-react';
 
 export default function App() {
   const [activeModalShirt, setActiveModalShirt] = useState(null);
@@ -20,6 +21,8 @@ export default function App() {
   const handleCloseModal = () => {
     setActiveModalShirt(null);
   };
+
+  const generalWhatsAppUrl = getWhatsAppLink();
 
   return (
     <div className="app-root">
@@ -48,7 +51,7 @@ export default function App() {
           <p style={{ marginTop: '0.5rem' }}>
             Diseñado para ventas por{' '}
             <a
-              href={`https://instagram.com/${WHATSAPP_CONFIG.instagramHandle}`}
+              href={WHATSAPP_CONFIG.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -59,6 +62,18 @@ export default function App() {
         </div>
       </footer>
 
+      {/* Botón flotante de WhatsApp para Móviles */}
+      <a
+        href={generalWhatsAppUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-whatsapp-btn"
+        aria-label="Contactar por WhatsApp"
+      >
+        <MessageCircle size={26} />
+        <span className="floating-whatsapp-text">Consultar</span>
+      </a>
+
       {/* Modal 3D al hacer clic en ver en 3D */}
       <ProductModal3D
         shirt={activeModalShirt}
@@ -67,3 +82,4 @@ export default function App() {
     </div>
   );
 }
+

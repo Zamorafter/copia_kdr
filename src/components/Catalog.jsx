@@ -23,28 +23,12 @@ export default function Catalog({ shirts, onOpenModal }) {
           </p>
 
           {/* Filtros de Categorías */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '0.75rem',
-            marginTop: '1.5rem',
-            flexWrap: 'wrap'
-          }}>
+          <div className="category-filters-wrap">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className="glass-pill"
-                style={{
-                  padding: '0.5rem 1.25rem',
-                  fontSize: '0.85rem',
-                  fontWeight: '700',
-                  color: selectedCategory === cat ? '#fff' : 'var(--text-muted)',
-                  background: selectedCategory === cat ? 'var(--accent-ig-solid)' : 'rgba(255,255,255,0.05)',
-                  border: '1px solid ' + (selectedCategory === cat ? 'var(--accent-ig-solid)' : 'rgba(255,255,255,0.1)'),
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
+                className={`category-filter-btn glass-pill ${selectedCategory === cat ? 'active' : ''}`}
               >
                 {cat}
               </button>

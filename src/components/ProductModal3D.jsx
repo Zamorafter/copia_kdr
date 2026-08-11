@@ -24,18 +24,18 @@ export default function ProductModal3D({ shirt, onClose }) {
 
           {/* Lado Información y Botón de WhatsApp */}
           <div className="modal-info-box">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+            <div className="modal-badge-row">
               <span className="product-badge-tag">{shirt.tag}</span>
-              <span style={{ fontSize: '0.8rem', color: 'var(--accent-ig-solid)', fontWeight: '700' }}>
+              <span className="modal-category-name">
                 {shirt.category}
               </span>
             </div>
 
-            <h2 style={{ fontSize: '2rem', marginBottom: '0.75rem', lineHeight: '1.1' }}>
+            <h2 className="modal-title">
               {shirt.name}
             </h2>
 
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '2rem' }}>
+            <p className="modal-description">
               {shirt.description}
             </p>
 
@@ -44,14 +44,13 @@ export default function ProductModal3D({ shirt, onClose }) {
               href={wsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-whatsapp btn-whatsapp-lg"
-              style={{ width: '100%' }}
+              className="btn-whatsapp btn-whatsapp-lg modal-buy-btn"
             >
               <MessageCircle size={22} />
               <span>Comprar por WhatsApp</span>
             </a>
             
-            <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-dim)', marginTop: '0.85rem' }}>
+            <p className="modal-note">
               💬 Consulta de inmediato precio y disponibilidad por WhatsApp.
             </p>
           </div>

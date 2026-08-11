@@ -19,7 +19,7 @@ export default function HeroShowroom({ featuredShirt, onOpenModal }) {
           </div>
 
           <h1 className="hero-title">
-            Camisas Exclusivas <br />
+            Camisas Exclusivas <br className="hero-br" />
             <span className="gradient-text-ig">Urban Glow</span>
           </h1>
 
@@ -27,22 +27,21 @@ export default function HeroShowroom({ featuredShirt, onOpenModal }) {
             Catálogo oficial de nuestras prendas urbanas. Elige tu modelo favorito y consúltanos la disponibilidad y precio directamente por WhatsApp.
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="hero-actions">
             {/* Botón directo a WhatsApp */}
             <a
               href={wsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-whatsapp btn-whatsapp-lg"
+              className="btn-whatsapp btn-whatsapp-lg hero-btn-ws"
             >
               <MessageCircle size={22} />
-              <span>Consultar en WhatsApp</span>
+              <span>Consultar por WhatsApp</span>
             </a>
 
             <button
               onClick={() => onOpenModal(featuredShirt)}
-              className="btn-view-3d"
-              style={{ padding: '1rem 1.5rem' }}
+              className="btn-view-3d hero-btn-detail"
             >
               <Eye size={18} />
               <span>Ver Detalle</span>
