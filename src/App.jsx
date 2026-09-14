@@ -13,14 +13,14 @@ import { WHATSAPP_CONFIG, getWhatsAppLink } from './config/whatsapp';
 import { MessageCircle } from 'lucide-react';
 
 function StoreContent() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const [shirts, setShirts] = useState(SHIRTS_DATA);
   const [loading, setLoading] = useState(true);
   const [activeModalShirt, setActiveModalShirt] = useState(null);
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
 
-  // Cargar camisas desde Supabase (o fallback)
+  // Cargar camisas desde Supabase (o fallback local)
   const loadShirts = async () => {
     setLoading(true);
     try {
@@ -39,11 +39,55 @@ function StoreContent() {
     loadShirts();
   }, []);
 
-  const handleOpenAdmin = () => {
-    if (isAuthenticated) {
-      setIsAdminPanelOpen(true);
-    } else {
-      setIsAdminLoginOpen(true);
+  // Detector de enlace directo: si la URL contiene #admin o ?admin o /admin
+  const checkAdminRoute = () => {
+    const hash = window.location.hash.toLowerCase();
+    const search = window.location.search.toLowerCase();
+    const path = window.location.pathname.toLowerCase();
+
+    if (hash === '#admin' || search.includes('admin') || path.endsWith('/admin')) {
+      if (isAuthenticated) {
+        setIsAdminPanelOpen(true);
+        setIsAdminLoginOpen(false);
+      } else {
+        setIsAdminLoginOpen(true);
+        setIsAdminPanelOpen(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!authLoading) {
+      checkAdminRoute();
+    }
+
+    const handleHashChange = () => {
+      checkAdminRoute();
+    };
+
+    // Atajo de teclado secreto para abrir el admin: Ctrl + Shift + A
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        window.location.hash = 'admin';
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isAuthenticated, authLoading]);
+
+  // Cerrar modales y limpiar hash de la URL
+  const handleCloseAdmin = () => {
+    setIsAdminLoginOpen(false);
+    setIsAdminPanelOpen(false);
+    if (window.location.hash === '#admin') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   };
 
@@ -60,8 +104,8 @@ function StoreContent() {
 
   return (
     <div className="app-root">
-      {/* Barra de navegación con botón de admin */}
-      <Navbar onOpenAdmin={handleOpenAdmin} />
+      {/* Barra de navegación pública (sin botones de admin) */}
+      <Navbar />
 
       {/* Hero 3D Showroom */}
       <HeroShowroom
@@ -78,7 +122,7 @@ function StoreContent() {
       {/* Prueba Social de Instagram */}
       <InstagramSocialProof />
 
-      {/* Footer */}
+      {/* Footer Público */}
       <footer className="footer">
         <div className="container">
           <p>© {new Date().getFullYear()} STREETWEAR 3D. Todos los derechos reservados.</p>
@@ -92,20 +136,6 @@ function StoreContent() {
               Instagram
             </a>{' '}
             y WhatsApp (+{WHATSAPP_CONFIG.phoneNumber})
-          </p>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
-            <button
-              onClick={handleOpenAdmin}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-dim)',
-                textDecoration: 'underline',
-                cursor: 'pointer',
-              }}
-            >
-              Acceso a Administración
-            </button>
           </p>
         </div>
       </footer>
@@ -128,10 +158,10 @@ function StoreContent() {
         onClose={handleCloseModal}
       />
 
-      {/* Modal de Login Admin */}
+      {/* Modal de Login Admin (Acceso por link directo #admin) */}
       <AdminLoginModal
         isOpen={isAdminLoginOpen}
-        onClose={() => setIsAdminLoginOpen(false)}
+        onClose={handleCloseAdmin}
         onLoginSuccess={() => {
           setIsAdminLoginOpen(false);
           setIsAdminPanelOpen(true);
@@ -141,7 +171,7 @@ function StoreContent() {
       {/* Panel Completo de Gestión de Productos */}
       <AdminPanel
         isOpen={isAdminPanelOpen}
-        onClose={() => setIsAdminPanelOpen(false)}
+        onClose={handleCloseAdmin}
         shirts={shirts}
         onRefreshShirts={loadShirts}
       />

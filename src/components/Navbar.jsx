@@ -1,11 +1,8 @@
 import React from 'react';
-import { Instagram, ShoppingBag, Shield } from 'lucide-react';
+import { Instagram, ShoppingBag } from 'lucide-react';
 import { WHATSAPP_CONFIG } from '../config/whatsapp';
-import { useAuth } from '../context/AuthContext';
 
-export default function Navbar({ onOpenAdmin }) {
-  const { isAuthenticated } = useAuth();
-
+export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="container navbar-inner">
@@ -20,18 +17,8 @@ export default function Navbar({ onOpenAdmin }) {
         </a>
 
         {/* Botones de Navegación */}
-        <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-          {/* Botón Admin */}
-          <button
-            onClick={onOpenAdmin}
-            className={`nav-admin-btn ${isAuthenticated ? 'is-active' : ''}`}
-            title={isAuthenticated ? 'Abrir panel de administración (Conectado)' : 'Acceso Administrador'}
-          >
-            <Shield size={15} />
-            <span>Admin</span>
-          </button>
-
-          {/* Botón de Enlace a Instagram Oficial */}
+        <div className="nav-links">
+          {/* Enlace a Instagram Oficial */}
           <a
             href={WHATSAPP_CONFIG.instagramUrl}
             target="_blank"
@@ -48,4 +35,3 @@ export default function Navbar({ onOpenAdmin }) {
     </nav>
   );
 }
-

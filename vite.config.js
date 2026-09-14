@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './', // Permite que la web funcione en GitHub Pages y cualquier servidor sin pantalla en blanco
+  envPrefix: ['VITE_', 'SUPABASE_'], // Permite leer tanto VITE_ como SUPABASE_
 })
