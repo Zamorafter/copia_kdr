@@ -24,8 +24,11 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
     setLoading(true);
     try {
       await login(email, password);
-      if (onLoginSuccess) onLoginSuccess();
-      onClose();
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      } else {
+        onClose();
+      }
     } catch (err) {
       console.error('Error al iniciar sesión:', err);
       setErrorMsg(

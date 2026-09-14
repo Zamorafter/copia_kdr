@@ -82,13 +82,23 @@ function StoreContent() {
     };
   }, [isAuthenticated, authLoading]);
 
-  // Cerrar modales y limpiar hash de la URL
-  const handleCloseAdmin = () => {
+  const handleCloseLogin = () => {
     setIsAdminLoginOpen(false);
+    if (window.location.hash === '#admin') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
+  const handleClosePanel = () => {
     setIsAdminPanelOpen(false);
     if (window.location.hash === '#admin') {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
+  };
+
+  const handleLoginSuccess = () => {
+    setIsAdminLoginOpen(false);
+    setIsAdminPanelOpen(true);
   };
 
   const handleOpenModal = (shirt) => {
@@ -161,17 +171,14 @@ function StoreContent() {
       {/* Modal de Login Admin (Acceso por link directo #admin) */}
       <AdminLoginModal
         isOpen={isAdminLoginOpen}
-        onClose={handleCloseAdmin}
-        onLoginSuccess={() => {
-          setIsAdminLoginOpen(false);
-          setIsAdminPanelOpen(true);
-        }}
+        onClose={handleCloseLogin}
+        onLoginSuccess={handleLoginSuccess}
       />
 
       {/* Panel Completo de Gestión de Productos */}
       <AdminPanel
         isOpen={isAdminPanelOpen}
-        onClose={handleCloseAdmin}
+        onClose={handleClosePanel}
         shirts={shirts}
         onRefreshShirts={loadShirts}
       />
