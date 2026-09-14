@@ -1,18 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroShowroom from './components/HeroShowroom';
 import Catalog from './components/Catalog';
 import ProductModal3D from './components/ProductModal3D';
 import InstagramSocialProof from './components/InstagramSocialProof';
+import AdminLoginModal from './components/admin/AdminLoginModal';
+import AdminPanel from './components/admin/AdminPanel';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { fetchShirts } from './services/shirtService';
 import { SHIRTS_DATA } from './data/shirts';
 import { WHATSAPP_CONFIG, getWhatsAppLink } from './config/whatsapp';
 import { MessageCircle } from 'lucide-react';
 
-export default function App() {
+function StoreContent() {
+  const { isAuthenticated } = useAuth();
+  const [shirts, setShirts] = useState(SHIRTS_DATA);
+  const [loading, setLoading] = useState(true);
   const [activeModalShirt, setActiveModalShirt] = useState(null);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
 
-  // La camisa destacada en el Hero (por defecto la primera)
-  const featuredShirt = SHIRTS_DATA[0];
+  // Cargar camisas desde Supabase (o fallback)
+  const loadShirts = async () => {
+    setLoading(true);
+    try {
+      const res = await fetchShirts();
+      if (res.data && res.data.length > 0) {
+        setShirts(res.data);
+      }
+    } catch (e) {
+      console.warn('Error al cargar camisas:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadShirts();
+  }, []);
+
+  const handleOpenAdmin = () => {
+    if (isAuthenticated) {
+      setIsAdminPanelOpen(true);
+    } else {
+      setIsAdminLoginOpen(true);
+    }
+  };
 
   const handleOpenModal = (shirt) => {
     setActiveModalShirt(shirt);
@@ -22,12 +55,13 @@ export default function App() {
     setActiveModalShirt(null);
   };
 
+  const featuredShirt = shirts[0] || SHIRTS_DATA[0];
   const generalWhatsAppUrl = getWhatsAppLink();
 
   return (
     <div className="app-root">
-      {/* Navegación */}
-      <Navbar />
+      {/* Barra de navegación con botón de admin */}
+      <Navbar onOpenAdmin={handleOpenAdmin} />
 
       {/* Hero 3D Showroom */}
       <HeroShowroom
@@ -35,9 +69,9 @@ export default function App() {
         onOpenModal={handleOpenModal}
       />
 
-      {/* Catálogo de Camisas */}
+      {/* Catálogo de Camisas Dinámico */}
       <Catalog
-        shirts={SHIRTS_DATA}
+        shirts={shirts}
         onOpenModal={handleOpenModal}
       />
 
@@ -59,6 +93,20 @@ export default function App() {
             </a>{' '}
             y WhatsApp (+{WHATSAPP_CONFIG.phoneNumber})
           </p>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+            <button
+              onClick={handleOpenAdmin}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text-dim)',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+              }}
+            >
+              Acceso a Administración
+            </button>
+          </p>
         </div>
       </footer>
 
@@ -74,12 +122,37 @@ export default function App() {
         <span className="floating-whatsapp-text">Consultar</span>
       </a>
 
-      {/* Modal 3D al hacer clic en ver en 3D */}
+      {/* Modal 3D al hacer clic en ver en 3D / Detalle */}
       <ProductModal3D
         shirt={activeModalShirt}
         onClose={handleCloseModal}
+      />
+
+      {/* Modal de Login Admin */}
+      <AdminLoginModal
+        isOpen={isAdminLoginOpen}
+        onClose={() => setIsAdminLoginOpen(false)}
+        onLoginSuccess={() => {
+          setIsAdminLoginOpen(false);
+          setIsAdminPanelOpen(true);
+        }}
+      />
+
+      {/* Panel Completo de Gestión de Productos */}
+      <AdminPanel
+        isOpen={isAdminPanelOpen}
+        onClose={() => setIsAdminPanelOpen(false)}
+        shirts={shirts}
+        onRefreshShirts={loadShirts}
       />
     </div>
   );
 }
 
+export default function App() {
+  return (
+    <AuthProvider>
+      <StoreContent />
+    </AuthProvider>
+  );
+}
