@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Urban Glow Streetwear - Main JavaScript File
  * Vanilla ES6+ implementation for interactive features
  */
@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroProductMeta = document.querySelector('.hero-product-meta');
 
   const heroProducts = [
-    { name: 'CAMISETA SAMURAI FURY', meta: 'Algodón 100% Oversize • Estampado Mega Link' },
-    { name: 'CAMISETA RACING DEPT', meta: 'Algodón 100% Oversize • Estampado DTF Premium' }
+    { name: 'CAMISETA SAMURAI FURY', meta: 'AlgodÃ³n 100% Oversize â€¢ Estampado Mega Link' },
+    { name: 'CAMISETA RACING DEPT', meta: 'AlgodÃ³n 100% Oversize â€¢ Estampado DTF Premium' }
   ];
 
   let currentSlideIndex = 0;
@@ -315,4 +315,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
   highlightNavOnScroll();
+
+  // ==========================================================================
+  // 9. Product Modal Logic
+  // ==========================================================================
+  const productModal = document.getElementById('productModal');
+  const closeModalBtn = document.getElementById('closeModal');
+  const modalFrontImg = document.getElementById('modalFrontImg');
+  const modalBackImg = document.getElementById('modalBackImg');
+  const modalCategory = document.getElementById('modalCategory');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const btnFront = document.getElementById('btnFront');
+  const btnBack = document.getElementById('btnBack');
+
+  const productsData = {
+    samurai: {
+      category: 'STREETWEAR SAMURAI',
+      title: 'URBAN SAMURAI ARMOR',
+      desc: 'Nuestro buque insignia con diseño frontal del samurái en armadura japonesa tradicional y detalles en la espalda.',
+      frontImg: 'img/samurai-front.jpg',
+      backImg: 'img/samurai-back.jpg'
+    },
+    racing: {
+      category: 'RACING DEPT.',
+      title: 'DRIVEN 46 SPEED CLUB',
+      desc: 'Diseño frontal inspirado en los circuitos de alta competición y estampado grande en la espalda con el número 16.',
+      frontImg: 'img/racing-front.jpg',
+      backImg: 'img/racing-back.jpg'
+    }
+  };
+
+  window.openProductModal = function(productId) {
+    const data = productsData[productId];
+    if(!data) return;
+    
+    modalCategory.textContent = data.category;
+    modalTitle.textContent = data.title;
+    modalDesc.textContent = data.desc;
+    modalFrontImg.src = data.frontImg;
+    modalBackImg.src = data.backImg;
+    
+    // Reset to front view
+    modalFrontImg.classList.add('active');
+    modalBackImg.classList.remove('active');
+    btnFront.classList.add('active');
+    btnBack.classList.remove('active');
+    
+    productModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  };
+
+  if(closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      productModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+
+  if(productModal) {
+    productModal.addEventListener('click', (e) => {
+      if(e.target === productModal) {
+        productModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  if(btnFront && btnBack) {
+    btnFront.addEventListener('click', () => {
+      btnFront.classList.add('active');
+      btnBack.classList.remove('active');
+      modalFrontImg.classList.add('active');
+      modalBackImg.classList.remove('active');
+    });
+    
+    btnBack.addEventListener('click', () => {
+      btnBack.classList.add('active');
+      btnFront.classList.remove('active');
+      modalBackImg.classList.add('active');
+      modalFrontImg.classList.remove('active');
+    });
+  }
 });
+
