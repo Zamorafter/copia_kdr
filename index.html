@@ -1,18 +1,521 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e1306c' stroke-width='2'><path d='M20.38 3.46 16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z'/></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>URBAN GLOW | Catálogo Oficial de Camisas</title>
-    
-    <!-- Google Fonts -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Glow - Camisas Exclusivas Streetwear</title>
+    <meta name="description" content="Camisas exclusivas de edición limitada. Streetwear premium con diseños japoneses y racing. Envíos a todo el país.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fa-solid fa-bolt"></i>
+                <span>URBAN GLOW</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#coleccion">COLECCIÓN</a></li>
+                <li><a href="#materiales">OPORTUNIDAD</a></li>
+                <li><a href="#instagram">RESEÑAS</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="https://wa.me/584241526535" class="nav-action-btn" aria-label="WhatsApp" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span class="nav-action-text">HABLEMOS</span>
+                </a>
+                <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-badge">
+                    <i class="fa-solid fa-bolt"></i> URBAN GLOW STREETWEAR • EDICIÓN LIMITADA
+                </span>
+                <h1 class="hero-title">
+                    CAMISAS<br>
+                    EXCLUSIVAS<br>
+                    <span class="hero-title-accent">URBAN GLOW</span>
+                </h1>
+                <p class="hero-description">
+                    Estilo e identidad que otros desean. Diseña tu presencia con estampados japoneses de tirada
+                    limitada. Explora los detalles, conoce las telas, ve la calidad de estampado y gráficos
+                    edificados en la siguiente generación exclusiva a través de nuestras camisas oficiales.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>500+ Populares</span>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <span>Entregas en 3-5 Días</span>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fa-solid fa-gem"></i>
+                        <span>Piezas Exclusivas</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/584241526535" class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-whatsapp"></i> ORDÉNAME POR WHATSAPP
+                    </a>
+                    <a href="https://instagram.com/urbanglow358" class="btn btn-outline" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-instagram"></i> VER EN INSTAGRAM
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-product">
+                <div class="hero-product-slider" id="heroSlider">
+                    <!-- Slide 1 -->
+                    <div class="hero-slide active" data-slide="0">
+                        <div class="hero-product-badges">
+                            <span class="badge badge-dark">BLACK SHIRT</span>
+                            <span class="badge badge-dark"><i class="fa-solid fa-fire"></i> PLUS DE RACING</span>
+                        </div>
+                        <div class="hero-product-image">
+                            <img src="img/samurai-front.jpg" alt="Camiseta Samurai Fury - Frente" class="hero-img" loading="lazy">
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="hero-slide" data-slide="1">
+                        <div class="hero-product-badges">
+                            <span class="badge badge-dark">BLACK SHIRT</span>
+                            <span class="badge badge-dark"><i class="fa-solid fa-flag-checkered"></i> RACING</span>
+                        </div>
+                        <div class="hero-product-image">
+                            <img src="img/racing-front.jpg" alt="Camiseta Racing Dept - Frente" class="hero-img" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-product-info">
+                    <div class="hero-product-thumbs">
+                        <button class="thumb active" data-thumb="0">
+                            <img src="img/samurai-front.jpg" alt="Samurai" class="thumb-img">
+                        </button>
+                        <button class="thumb" data-thumb="1">
+                            <img src="img/racing-front.jpg" alt="Racing" class="thumb-img">
+                        </button>
+                    </div>
+                    <div class="hero-product-details">
+                        <h3 class="hero-product-name" id="heroProductName">CAMISETA SAMURAI FURY</h3>
+                        <p class="hero-product-meta">Algodón 100% Oversize • Estampado Mega Link</p>
+                    </div>
+                    <button class="hero-product-arrow" id="heroNextBtn" aria-label="Siguiente producto">
+                        <span>VER DETALLE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES BAR ========== -->
+    <section class="features-bar">
+        <div class="features-container">
+            <div class="feature-item fade-in">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>CALIDAD PREMIUM</h4>
+                    <p>100% Algodón Premium de alta densidad y durabilidad</p>
+                </div>
+            </div>
+            <div class="feature-divider"></div>
+            <div class="feature-item fade-in">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-palette"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>DISEÑO EXCLUSIVO</h4>
+                    <p>Estampados de edición limitada con acabados japoneses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COLLECTION SECTION ========== -->
+    <section class="collection" id="coleccion">
+        <div class="collection-container">
+            <div class="collection-header fade-in">
+                <span class="section-label">SHOP PREMIUM SELECTION</span>
+                <h2 class="section-title">COLECCIÓN URBAN GLOW</h2>
+                <p class="section-subtitle">
+                    Explora las camisas más buscadas del momento en el mundo streetwear, diseñadas con la tendencia y la estética del
+                    automovilismo de alta competición.
+                </p>
+            </div>
+
+            <div class="filter-tabs fade-in">
+                <button class="filter-tab active" data-filter="all">TODOS</button>
+                <button class="filter-tab" data-filter="samurai">STREETWEAR SAMURAI</button>
+                <button class="filter-tab" data-filter="racing">RACING DEPT.</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Product 1: Samurai Front -->
+                <div class="product-card fade-in" data-category="samurai">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="img/samurai-front.jpg" alt="Urban Samurai Armor - Frente" loading="lazy">
+                        </div>
+                        <div class="product-badges">
+                            <span class="badge badge-new">NUEVO</span>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Vista Rápida</button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">STREETWEAR SAMURAI</span>
+                        <h3 class="product-name">URBAN SAMURAI ARMOR (FRENTE)</h3>
+                        <p class="product-description">
+                            Nuestro buque insignia con diseño frontal del samurái en armadura japonesa tradicional.
+                        </p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="price-label">Precio</span>
+                                <span class="price-value">$25.00</span>
+                            </div>
+                            <a href="#" class="btn btn-card btn-samurai">
+                                <i class="fa-solid fa-eye"></i> VER DETALLES & PEDIR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Samurai Back -->
+                <div class="product-card fade-in" data-category="samurai">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="img/samurai-back.jpg" alt="Urban Samurai Armor - Espalda" loading="lazy">
+                        </div>
+                        <div class="product-badges">
+                            <span class="badge badge-new">NUEVO</span>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Vista Rápida</button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">STREETWEAR SAMURAI</span>
+                        <h3 class="product-name">URBAN SAMURAI ARMOR (ESPALDA)</h3>
+                        <p class="product-description">
+                            Vista posterior de la camisa. Diseño en la espalda con detalles de la armadura samurái.
+                        </p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="price-label">Precio</span>
+                                <span class="price-value">$25.00</span>
+                            </div>
+                            <a href="#" class="btn btn-card btn-samurai">
+                                <i class="fa-solid fa-eye"></i> VER DETALLES & PEDIR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Racing Front -->
+                <div class="product-card fade-in" data-category="racing">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="img/racing-front.jpg" alt="DRIVEN 46 Speed Club - Frente" loading="lazy">
+                        </div>
+                        <div class="product-badges">
+                            <span class="badge badge-limited">EDICIÓN LIMITADA</span>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Vista Rápida</button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">RACING DEPT.</span>
+                        <h3 class="product-name">DRIVEN 46 SPEED CLUB (FRENTE)</h3>
+                        <p class="product-description">
+                            Diseño frontal inspirado en los circuitos. "Driven by ambition, Speed by nature". Motor V8.
+                        </p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="price-label">Precio</span>
+                                <span class="price-value">$25.00</span>
+                            </div>
+                            <a href="#" class="btn btn-card btn-racing">
+                                <i class="fa-solid fa-eye"></i> VER DETALLES & PEDIR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Racing Back -->
+                <div class="product-card fade-in" data-category="racing">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="img/racing-back.jpg" alt="DRIVEN 46 Speed Club - Espalda" loading="lazy">
+                        </div>
+                        <div class="product-badges">
+                            <span class="badge badge-limited">EDICIÓN LIMITADA</span>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Vista Rápida</button>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">RACING DEPT.</span>
+                        <h3 class="product-name">DRIVEN 46 SPEED CLUB (ESPALDA)</h3>
+                        <p class="product-description">
+                            Diseño 16 estampado en grande en la espalda. Detalle "DRIVEN Racing". GRÁFICO heading.
+                        </p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="price-label">Precio</span>
+                                <span class="price-value">$25.00</span>
+                            </div>
+                            <a href="#" class="btn btn-card btn-racing">
+                                <i class="fa-solid fa-eye"></i> VER DETALLES & PEDIR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MATERIALS SECTION ========== -->
+    <section class="materials" id="materiales">
+        <div class="materials-container">
+            <div class="materials-content fade-in">
+                <span class="section-label">MANUFACTURING TEXTILES</span>
+                <h2 class="materials-title">
+                    CONFECCIÓN &<br>
+                    <span class="materials-title-italic">MATERIALES</span>
+                </h2>
+                <p class="materials-description">
+                    Cada prenda de Urban Glow es confeccionada a 
+                    mano con los mejores materiales y acabados que nos 
+                    distinguen. Experimentarás un fit que te acompañará en el 
+                    tiempo con materiales que cuidan a ti y el medio del 
+                    tiempo.
+                </p>
+                <ul class="materials-list">
+                    <li>
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span><strong>Tela:</strong> 100% Algodón Premium Ringspun 200+</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span><strong>Estampado:</strong> Técnica DTF en alto relieve con alta fidelidad</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span><strong>Ajuste:</strong> Corte: Semi-Oversize para comfort y tendencia</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span><strong>Cuidado:</strong> Diseño contralavado estabilizado con doble costura.</span>
+                    </li>
+                </ul>
+                <a href="#" class="materials-link">
+                    <i class="fa-solid fa-arrow-right"></i> VER GUÍA DE MEDIDAS Y CUIDADOS
+                </a>
+            </div>
+
+            <div class="materials-features fade-in">
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h4>ANTI PILLING</h4>
+                    <p>Resistente a la formación de motas y fibras sueltas.</p>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <h4>COLOR LOCK</h4>
+                    <p>Colores vibrantes que se mantienen lavado tras lavado.</p>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h4>CERO RESIDUOS</h4>
+                    <p>Proceso productivo eco-amigable con cero desperdicio.</p>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h4>TRATO DIRECTO</h4>
+                    <p>Sin intermediarios. Compra directo del fabricante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INSTAGRAM SECTION ========== -->
+    <section class="instagram" id="instagram">
+        <div class="instagram-container">
+            <div class="instagram-header fade-in">
+                <span class="section-label section-label-light">@INSTAGRAM OFFICIAL</span>
+                <h2 class="instagram-title">
+                    SÍGUENOS EN<br>
+                    <span class="instagram-handle">@URBANGLOW358</span>
+                </h2>
+                <p class="instagram-subtitle">
+                    Conoce las últimas novedades, estilos, contenido y la comunidad más real de Urban Glow
+                    en la red de moda urbana.
+                </p>
+            </div>
+
+            <div class="instagram-grid fade-in">
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-1">
+                        <div class="ig-content">
+                            <i class="fa-solid fa-shirt"></i>
+                            <span>Samurai Fury</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-2">
+                        <div class="ig-content">
+                            <i class="fa-solid fa-camera"></i>
+                            <span>Sesión</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-3">
+                        <div class="ig-content">
+                            <i class="fa-solid fa-tag"></i>
+                            <span>Racing Dept</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-4">
+                        <div class="ig-content">
+                            <i class="fa-solid fa-star"></i>
+                            <span>Reseña</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-5">
+                        <div class="ig-content">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <span>Packaging</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <div class="ig-placeholder ig-6">
+                        <div class="ig-content">
+                            <span class="ig-kanji">武士道</span>
+                            <span>Bushido</span>
+                        </div>
+                        <div class="ig-overlay">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instagram-cta fade-in">
+                <a href="https://instagram.com/urbanglow358" class="btn btn-white" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-instagram"></i> SEGUIR EN @URBANGLOW358
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <i class="fa-solid fa-bolt"></i> URBAN GLOW
+                    </a>
+                    <p class="footer-tagline">Streetwear premium de edición limitada.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h5>TIENDA</h5>
+                        <a href="#coleccion">Colección Completa</a>
+                        <a href="#coleccion">Samurai Series</a>
+                        <a href="#coleccion">Racing Dept.</a>
+                    </div>
+                    <div class="footer-col">
+                        <h5>INFO</h5>
+                        <a href="#materiales">Materiales</a>
+                        <a href="#">Guía de Tallas</a>
+                        <a href="#">Envíos</a>
+                    </div>
+                    <div class="footer-col">
+                        <h5>CONTACTO</h5>
+                        <a href="https://wa.me/584241526535" target="_blank" rel="noopener">WhatsApp</a>
+                        <a href="https://instagram.com/urbanglow358" target="_blank" rel="noopener">Instagram</a>
+                        <a href="mailto:info@urbanglow.com">Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Urban Glow. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== WHATSAPP FLOATING BUTTON ========== -->
+    <a href="https://wa.me/584241526535" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">¿Necesitas ayuda?</span>
+    </a>
+
+    <!-- ========== SCROLL TO TOP ========== -->
+    <button class="scroll-top" id="scrollTop" aria-label="Volver arriba">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
 </html>
