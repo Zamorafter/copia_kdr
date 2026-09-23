@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroProductMeta = document.querySelector('.hero-product-meta');
 
   const heroProducts = [
-    { name: 'CAMISETA SAMURAI FURY', meta: 'AlgodÃ³n 100% Oversize â€¢ Estampado Mega Link' },
-    { name: 'CAMISETA RACING DEPT', meta: 'AlgodÃ³n 100% Oversize â€¢ Estampado DTF Premium' }
+    { name: 'CAMISETA SAMURAI FURY', meta: 'Algodón 100% Oversize • Estampado Mega Link' },
+    { name: 'CAMISETA RACING DEPT', meta: 'Algodón 100% Oversize • Estampado DTF Premium' }
   ];
 
   let currentSlideIndex = 0;
