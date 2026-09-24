@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Urban Glow Streetwear - Main JavaScript File
  * Vanilla ES6+ implementation for interactive features
  */
@@ -361,6 +361,14 @@ document.addEventListener('DOMContentLoaded', () => {
     modalBackImg.classList.remove('active');
     btnFront.classList.add('active');
     btnBack.classList.remove('active');
+    
+    // Update WhatsApp button with dynamic message
+    const whatsappBtn = productModal.querySelector('.btn-modal-order');
+    if (whatsappBtn) {
+      const imgUrl = new URL(data.frontImg, window.location.href).href;
+      const message = `¡Hola! Quisiera saber si tienen disponibilidad de la camiseta ${data.title}. Foto de referencia: ${imgUrl}`;
+      whatsappBtn.href = `https://wa.me/584241526535?text=${encodeURIComponent(message)}`;
+    }
     
     productModal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
